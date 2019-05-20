@@ -1,0 +1,356 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="UpdateNGODonationDetails" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InOutArgument(ui:QueueItem)" />
+    <x:Property Name="dictionaryMonth" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>665,2917</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="UpdateNGODonationDetails" sap:VirtualizedContainerService.HintSize="625,2837" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="isExistsElement" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Name&quot;).ToString]" Name="strName" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Email&quot;).ToString]" Name="strEmail" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Phone&quot;).ToString]" Name="strPhone" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Address&quot;).ToString]" Name="strAddress" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;Country&quot;).ToString]" Name="strCountry" />
+      <Variable x:TypeArguments="ui:GenericValue" Default="[in_TransactionItem.SpecificContent(&quot;DOB&quot;).ToString]" Name="strDOB" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;PAN&quot;).ToString.Trim]" Name="strPAN" />
+      <Variable x:TypeArguments="s:String[]" Name="strDOBSplitted" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Default="[dictionaryMonth]" Name="strMonthDictionary" />
+      <Variable x:TypeArguments="x:String" Default="[in_TransactionItem.SpecificContent(&quot;DonateTo&quot;).ToString.Trim]" Name="strDonateTo" />
+      <Variable x:TypeArguments="x:String" Name="setMonthString" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="603,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[strDOBSplitted]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[strDOB.Split("/")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="603,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[setMonthString]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[strMonthDictionary(strDOBSplitted.GetValue(1).ToString)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="603,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[setMonthString + &quot;&gt;&gt;&gt;&quot; + strDOBSplitted.GetValue(1).ToString + &quot;&gt;&gt;&gt;&gt;&quot; + strMonthDictionary(strDOBSplitted.GetValue(1).ToString)]" />
+    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'B'" sap:VirtualizedContainerService.HintSize="603,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+      <ui:Click.CursorPosition>
+        <ui:CursorPosition Position="Center">
+          <ui:CursorPosition.OffsetX>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetX>
+          <ui:CursorPosition.OffsetY>
+            <InArgument x:TypeArguments="x:Int32" />
+          </ui:CursorPosition.OffsetY>
+        </ui:CursorPosition>
+      </ui:Click.CursorPosition>
+      <ui:Click.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="feb00ebeebad311058f9e8e67bbe293b" Selector="&lt;html app='chrome.exe' title='Ngo In India | Education For Poor Children | Donate Online For U*' /&gt;&lt;webctrl idx='1' tag='B' /&gt;" WaitForReady="INTERACTIVE" />
+      </ui:Click.Target>
+    </ui:Click>
+    <ui:UiElementExists DisplayName="Element Exists 'DIV'" Exists="[isExistsElement]" sap:VirtualizedContainerService.HintSize="603,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+      <ui:UiElementExists.Target>
+        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="2c1a9c721dc82c91b632c1a02afac01e" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' idx='2' tag='DIV' /&gt;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
+      </ui:UiElementExists.Target>
+    </ui:UiElementExists>
+    <If Condition="[isExistsElement]" sap:VirtualizedContainerService.HintSize="603,2090" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336,1942" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'INPUT  aamount18'" sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Check_1">
+            <ui:Check.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="480448cbd3a0ff21a968b976d07e9f61" Selector="[&quot;&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='aamount&quot;+strDonateTo+&quot;' tag='INPUT' type='radio' /&gt;&quot;]" WaitForReady="INTERACTIVE" />
+            </ui:Check.Target>
+          </ui:Check>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  name'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="[strName]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b6b9c634b0b3e4faf1e9577ff816d328" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='name' parentid='tplx-donation-form' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  email'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[strEmail]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="733e8a205e1a31689eeac085f7ba8603" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='email' parentid='tplx-donation-form' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  phone'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="False" Text="[strPhone]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="322177fe0da9a1b90f174af0691f39d5" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='Phone' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  address'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_4" SendWindowMessages="False" SimulateType="False" Text="[strAddress]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d30822a0a5ba80ee137e8d7d8b9aa9e6" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='address' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT'" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[strCountry]">
+            <ui:SelectItem.Items>
+              <scg:List x:TypeArguments="x:String" Capacity="50">
+                <x:String>India</x:String>
+                <x:String>Afghanistan</x:String>
+                <x:String>�land Islands</x:String>
+                <x:String>Albania</x:String>
+                <x:String>Algeria</x:String>
+                <x:String>American Samoa</x:String>
+                <x:String>Andorra</x:String>
+                <x:String>Angola</x:String>
+                <x:String>Anguilla</x:String>
+                <x:String>Antarctica</x:String>
+                <x:String>Argentina</x:String>
+                <x:String>Armenia</x:String>
+                <x:String>Aruba</x:String>
+                <x:String>Australia</x:String>
+                <x:String>Austria</x:String>
+                <x:String>Azerbaijan</x:String>
+                <x:String>Bahamas</x:String>
+                <x:String>Bahrain</x:String>
+                <x:String>Bangladesh</x:String>
+                <x:String>Barbados</x:String>
+                <x:String>Belarus</x:String>
+                <x:String>Belgium</x:String>
+                <x:String>Belize</x:String>
+                <x:String>Benin</x:String>
+                <x:String>Bermuda</x:String>
+                <x:String>Bhutan</x:String>
+                <x:String>Botswana</x:String>
+                <x:String>Bouvet Island</x:String>
+                <x:String>Brazil</x:String>
+                <x:String>Brunei</x:String>
+                <x:String>Bulgaria</x:String>
+                <x:String>Burundi</x:String>
+                <x:String>Cambodia</x:String>
+                <x:String>Cameroon</x:String>
+                <x:String>Canada</x:String>
+                <x:String>Cape Verde</x:String>
+                <x:String>Chad</x:String>
+                <x:String>Chile</x:String>
+                <x:String>China</x:String>
+                <x:String>Colombia</x:String>
+                <x:String>Comoros</x:String>
+                <x:String>Congo</x:String>
+                <x:String>Cook Islands</x:String>
+                <x:String>Costa Rica</x:String>
+                <x:String>C�te d'Ivoire</x:String>
+                <x:String>Croatia</x:String>
+                <x:String>Cuba</x:String>
+                <x:String>Cura�ao</x:String>
+                <x:String>Cyprus</x:String>
+                <x:String>Czech Republic</x:String>
+              </scg:List>
+            </ui:SelectItem.Items>
+            <ui:SelectItem.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="53347792e268157a1fbd697460dc8954" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl name='country' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SelectItem.Target>
+          </ui:SelectItem>
+          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Date" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="[strDOBSplitted.GetValue(0).ToString]">
+            <ui:SelectItem.Items>
+              <scg:List x:TypeArguments="x:String" Capacity="32">
+                <x:String>Date</x:String>
+                <x:String>01</x:String>
+                <x:String>02</x:String>
+                <x:String>03</x:String>
+                <x:String>04</x:String>
+                <x:String>05</x:String>
+                <x:String>06</x:String>
+                <x:String>07</x:String>
+                <x:String>08</x:String>
+                <x:String>09</x:String>
+                <x:String>10</x:String>
+                <x:String>11</x:String>
+                <x:String>12</x:String>
+                <x:String>13</x:String>
+                <x:String>14</x:String>
+                <x:String>15</x:String>
+                <x:String>16</x:String>
+                <x:String>17</x:String>
+                <x:String>18</x:String>
+                <x:String>19</x:String>
+                <x:String>20</x:String>
+                <x:String>21</x:String>
+                <x:String>22</x:String>
+                <x:String>23</x:String>
+                <x:String>24</x:String>
+                <x:String>25</x:String>
+                <x:String>26</x:String>
+                <x:String>27</x:String>
+                <x:String>28</x:String>
+                <x:String>29</x:String>
+                <x:String>30</x:String>
+                <x:String>31</x:String>
+              </scg:List>
+            </ui:SelectItem.Items>
+            <ui:SelectItem.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0ea46363a151ab7d01022fbd7f9994e7" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl name='agedd' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SelectItem.Target>
+          </ui:SelectItem>
+          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Month" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="SelectItem_3" Item="[setMonthString]">
+            <ui:SelectItem.Items>
+              <scg:List x:TypeArguments="x:String" Capacity="16">
+                <x:String>Month</x:String>
+                <x:String>Jan</x:String>
+                <x:String>Feb</x:String>
+                <x:String>March</x:String>
+                <x:String>April</x:String>
+                <x:String>May</x:String>
+                <x:String>June</x:String>
+                <x:String>July</x:String>
+                <x:String>Aug</x:String>
+                <x:String>Sept</x:String>
+                <x:String>Oct</x:String>
+                <x:String>Nov</x:String>
+                <x:String>Dec</x:String>
+              </scg:List>
+            </ui:SelectItem.Items>
+            <ui:SelectItem.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="68974a4dc8662a07a8af1b831fd94c3b" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl name='agemm' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SelectItem.Target>
+          </ui:SelectItem>
+          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Year" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="SelectItem_4" Item="[strDOBSplitted.GetValue(2).ToString]">
+            <ui:SelectItem.Items>
+              <scg:List x:TypeArguments="x:String" Capacity="50">
+                <x:String>Year</x:String>
+                <x:String>1920</x:String>
+                <x:String>1921</x:String>
+                <x:String>1922</x:String>
+                <x:String>1923</x:String>
+                <x:String>1924</x:String>
+                <x:String>1925</x:String>
+                <x:String>1926</x:String>
+                <x:String>1927</x:String>
+                <x:String>1928</x:String>
+                <x:String>1929</x:String>
+                <x:String>1930</x:String>
+                <x:String>1931</x:String>
+                <x:String>1932</x:String>
+                <x:String>1933</x:String>
+                <x:String>1934</x:String>
+                <x:String>1935</x:String>
+                <x:String>1936</x:String>
+                <x:String>1937</x:String>
+                <x:String>1938</x:String>
+                <x:String>1939</x:String>
+                <x:String>1940</x:String>
+                <x:String>1941</x:String>
+                <x:String>1942</x:String>
+                <x:String>1943</x:String>
+                <x:String>1944</x:String>
+                <x:String>1945</x:String>
+                <x:String>1946</x:String>
+                <x:String>1947</x:String>
+                <x:String>1948</x:String>
+                <x:String>1949</x:String>
+                <x:String>1950</x:String>
+                <x:String>1951</x:String>
+                <x:String>1952</x:String>
+                <x:String>1953</x:String>
+                <x:String>1954</x:String>
+                <x:String>1955</x:String>
+                <x:String>1956</x:String>
+                <x:String>1957</x:String>
+                <x:String>1958</x:String>
+                <x:String>1959</x:String>
+                <x:String>1960</x:String>
+                <x:String>1961</x:String>
+                <x:String>1962</x:String>
+                <x:String>1963</x:String>
+                <x:String>1964</x:String>
+                <x:String>1965</x:String>
+                <x:String>1966</x:String>
+                <x:String>1967</x:String>
+                <x:String>1968</x:String>
+              </scg:List>
+            </ui:SelectItem.Items>
+            <ui:SelectItem.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4ceb0d3a5812efcfe113d36391b719c1" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl name='ageyy' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SelectItem.Target>
+          </ui:SelectItem>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'INPUT  pan'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_5" SendWindowMessages="False" SimulateType="False" Text="[strPAN]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="89bec08549730cca403fc46749d99d39" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='pan' tag='INPUT' type='text' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:Highlight Color="255, 200, 135" DisplayName="Highlight 'INPUT  tplx-donation-btn'" HighlightTime="2000" sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Highlight_1">
+            <ui:Highlight.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f378a6369b250bbfe79b3b4ea60b6282" Selector="&lt;html app='chrome.exe' title='Donate Online | Donate to NGO | Donate Online for poor | Educati*' /&gt;&lt;webctrl id='tplx-donation-btn' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:Highlight.Target>
+          </ui:Highlight>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Assign sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <Assign.To>
+            <OutArgument x:TypeArguments="ui:QueueItem">[in_TransactionItem]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="ui:QueueItem">[Nothing]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
